@@ -38,7 +38,6 @@ export class RentPostController {
 
   @Get()
   async findAll(@Req() req: Request, @Res() res: Response) {
-    console.log('hit');
     try {
       const result = await this.rentPostService.findAll();
       if (result) {

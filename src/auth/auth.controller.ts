@@ -13,11 +13,12 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
+    console.log('hit');
     try {
-      const username: string = loginDto.inputUsername;
+      const username: string = loginDto.username;
       const user = await this.authService.findIUserByUsername(username);
       if (user) {
-        const password: string = loginDto.inputPassword;
+        const password: string = loginDto.password;
         const isPasswordCorrect: boolean =
           await this.authService.comparePassword(user.password, password);
         if (isPasswordCorrect) {
