@@ -8,6 +8,7 @@ import {
   // Delete,
   Req,
   Res,
+  Param,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
@@ -51,10 +52,10 @@ export class RentAreaController {
     }
   }
 
-  // @Get(':name')
-  // findOne(@Param('name') name: string) {
-  //   return this.rentAreaService.findOne(name);
-  // }
+  @Get(':name')
+  findOne(@Param('name') name: string) {
+    return this.rentAreaService.findOne(name);
+  }
 
   // @Patch(':name')
   // update(

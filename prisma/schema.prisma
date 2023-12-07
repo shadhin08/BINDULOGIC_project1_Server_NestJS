@@ -37,8 +37,8 @@ model RentPost {
   size        Int
   image       String
 
-  author User?     @relation(fields: [userUsername], references: [username])
-  area   RentArea? @relation(fields: [rentAreaName], references: [area])
+  author User     @relation(fields: [userUsername], references: [username])
+  area   RentArea @relation(fields: [rentAreaName], references: [area])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

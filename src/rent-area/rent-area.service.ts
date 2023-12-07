@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class RentAreaService {
@@ -26,7 +26,7 @@ export class RentAreaService {
     });
   }
 
-  remove(name: string) {
+  async remove(name: string) {
     return this.databaseService.rentArea.delete({
       where: { area: name },
     });

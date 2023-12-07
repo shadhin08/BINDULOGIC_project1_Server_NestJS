@@ -13,7 +13,6 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    console.log('hit');
     try {
       const username: string = loginDto.username;
       const user = await this.authService.findIUserByUsername(username);
@@ -26,7 +25,7 @@ export class AuthController {
           res.status(200).send(user);
         } else {
           res.clearCookie('username');
-          res.status(404).send('User not found');
+          res.status(401).send('Incorrect Password');
         }
       } else {
         res.clearCookie('username');

@@ -24,15 +24,19 @@ export class RentPostController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const logedInUser = req.cookies ? req.cookies?.username : null;
-    if (logedInUser) {
-      const post = await this.rentPostService.create(
-        createRentPostDto,
-        logedInUser,
-      );
-      res.status(200).send(post);
-    } else {
-      res.status(400).send('Log in first...');
+    try {
+      const logedInUser = req.cookies ? req.cookies?.username : null;
+      if (logedInUser) {
+        const post = await this.rentPostService.create(
+          createRentPostDto,
+          logedInUser,
+        );
+        res.status(200).send(post);
+      } else {
+        res.status(400).send('Log in first...');
+      }
+    } catch (error) {
+      res.status(400).send('Something went wrong...');
     }
   }
 
@@ -41,6 +45,7 @@ export class RentPostController {
     try {
       const result = await this.rentPostService.findAll();
       if (result) {
+        result.reverse();
         res.status(200).send(result);
       } else {
         res.status(404).send('Rent post not found');
@@ -68,7 +73,7 @@ export class RentPostController {
     }
   }
 
-  @Get('username/:username')
+  @Get('user/:username')
   async findByUsername(
     @Param('username') username: string,
     @Req() req: Request,
@@ -77,9 +82,28 @@ export class RentPostController {
     try {
       const result = await this.rentPostService.findByUsername(username);
       if (result) {
+        result.reverse();
         res.status(200).send(result);
       } else {
         res.status(404).send('User not found');
+      }
+    } catch (error) {
+      res.status(400).send('Something went wrong...');
+    }
+  }
+  @Get('area/:area')
+  async findRentPostByArea(
+    @Param('area') area: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    try {
+      const result = await this.rentPostService.findRentPostByArea(area);
+      if (result) {
+        result.reverse();
+        res.status(200).send(result);
+      } else {
+        res.status(404).send('Rent post not found');
       }
     } catch (error) {
       res.status(400).send('Something went wrong...');

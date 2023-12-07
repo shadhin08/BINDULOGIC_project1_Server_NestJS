@@ -7,10 +7,10 @@ const corsOptions = {
   credentials: true, //included credentials as true
 };
 
-async function bootstrap() {
+async function main() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.enableCors(corsOptions);
   await app.listen(3030);
 }
-bootstrap();
+main();
